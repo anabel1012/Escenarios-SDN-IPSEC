@@ -24,5 +24,5 @@ IETF Working Draft at [https://tools.ietf.org/html/draft-ietf-i2nsf-sdn-ipsec-fl
 
 - **SDN Controller**. It is based on ncclient, a Python library that facilitates client-side scripting and application development around the NETCONF protocol. his repository is focused on this controller component.
 
-- **Server**. This NETCONF/YANG module is based on Netopeer2. It can be found at i2nsf_controller repository [https://pdihub.hi.inet/cne/i2nsf_server].
+- **Server**. This NETCONF/YANG module is based on Netopeer2. 
 	- **Converter**. A Netconf to Ansible converter has been developed under the server module. It makes possible the IPSEC tunnel establishment between linux and others vendors like Fortinet.
