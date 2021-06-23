@@ -100,8 +100,7 @@ As mentioned, two different scenarios are considered:
 
 N Host SA with ESP in transport mode: Set up a NxN host to host scenario dynamically managed by a python-based controller.
 
-![Example: h2h scenario](https://pdihub.hi.inet/cne/i2nsf_server/blob/master/images/h2h.jpg)
-> Example: h2h scenario
+
 #### Controller
 
 For this scenario, you need 'controller.py' file from i2nsf_controller repository []. 
@@ -128,10 +127,6 @@ Finally, you can make a ping to the another server and capture the traffic to ch
 
 Gw-2-Gw SA with ESP in tunnel mode (case 2- no IKE). Set up a NxN gateway to gateway scenario  dynamically managed by a python-based controller.
 
-![Example: g2g scenario](https://pdihub.hi.inet/cne/i2nsf_server/blob/master/images/g2g.jpg)
-> Example: g2g scenario
-
-*Note: Hosts must have as default route the gateway ip.
 
 #### Controller
 
@@ -160,8 +155,5 @@ For using the converter:
 
 1. Run converter.py (found at converter folder)
 2. Start supervisor on server
-
-![Example: g2g scenario with converter](https://pdihub.hi.inet/cne/i2nsf_server/blob/master/images/g2g_converter.jpg)
-> Example: g2g scenario with converter
 
 
