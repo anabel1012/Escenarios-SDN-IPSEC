@@ -26,13 +26,3 @@ IETF Working Draft at [https://tools.ietf.org/html/draft-ietf-i2nsf-sdn-ipsec-fl
 
 - **Server**. This NETCONF/YANG module is based on Netopeer2. It can be found at i2nsf_controller repository [https://pdihub.hi.inet/cne/i2nsf_server].
 	- **Converter**. A Netconf to Ansible converter has been developed under the server module. It makes possible the IPSEC tunnel establishment between linux and others vendors like Fortinet.
-
-# Requirements
-- Python 2.7+
-	- ncclient. 
-
-A .raw image can be found in Openstack, so that it is not necessary to install the required software. Just launch an instance!
-
-Image files to use:
-- Controller:
-- Server:
