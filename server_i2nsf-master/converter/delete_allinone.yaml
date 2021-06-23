@@ -1,0 +1,78 @@
+- hosts: localhost
+  vars:
+   host: 192.168.159.15
+   username: "admin"
+   password: "admin"
+   vdom: "root"
+  tasks:
+  - name: Configure IPsec manual keys.
+    fortios_vpn_ipsec_manualkey_interface:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      vpn_ipsec_manualkey_interface:
+        state: "absent"
+        auth_alg: "null" 
+        enc_key: "{{ enc_key }}"
+        enc_alg: "{{ enc_alg }}"
+        interface: "port2"
+        local_gw: "{{ local_gw }}"
+        local_spi: "{{ local_spi }}"
+        name: "{{ tunnel_name }}"
+        remote_gw: "{{ remote_gw }}"
+        remote_spi: "{{ remote_spi }}"
+  - name: Configure IPv4 policy2.
+    fortios_firewall_policy:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      firewall_policy:
+        state: "absent"
+        policyid: "2"
+        name: "policy2"
+        action: "accept"
+        srcintf: [ {"name": "port3"} ]
+        dstintf: [{"name":"{{ tunnel_name }}"} ]
+        srcaddr: [{"name":"all"} ]
+        dstaddr: [{"name":"all"}]
+        schedule: "always"
+        service: [{"name":"ALL"}]
+        logtraffic: "all"
+  - name: Configure IPv4 policy3.
+    fortios_firewall_policy:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      firewall_policy:
+        state: "absent"
+        policyid: "3"
+        name: "policy3"
+        action: "accept"
+        srcintf: [ {"name": "{{ tunnel_name }}"} ]
+        dstintf: [{"name":"port3"} ]
+        srcaddr: [{"name":"all"} ]
+        dstaddr: [{"name":"all"}]
+        schedule: "always"
+        service: [{"name":"ALL"}]
+        logtraffic: "all"
+  - name: Configure IPv4 static routing tables.
+    fortios_router_static:
+      host:  "{{ host }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vdom:  "{{ vdom }}"
+      https: "False"
+      router_static:
+        state: "absent"
+        dst: "{{ remote_internal }}"
+        device: "{{ tunnel_name }}"
+        seq_num: "1"
+
+
+

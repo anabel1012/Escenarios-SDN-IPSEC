@@ -1,0 +1,147 @@
+- hosts: localhost
+  vars:
+   host: 192.168.159.112
+   username: "admin"
+   password: "admin"
+   vdom: "root"
+  tasks:
+  - name: Configure interface port1.
+    fortios_system_interface:
+      host:  "192.168.159.15"
+      username: "admin"
+      password: "admin"
+      vdom:  "root"
+      https: "False"
+      system_interface:
+        state: "present"
+        name: "port1"
+        mode: "dhcp"
+        allowaccess:
+          - ping
+          - ssh
+          - https
+          - fgfm
+          - http
+  - name: Configure interface port2.
+    fortios_system_interface:
+      host:  "192.168.159.15"
+      username: "admin"
+      password: "admin"
+      vdom:  "root"
+      https: "False"
+      system_interface:
+        state: "present"
+        name: "port2"
+        mode: "dhcp"
+        allowaccess:
+          - ping
+          - ssh
+          - https
+          - fgfm
+          - http
+  - name: Configure interface port3.
+    fortios_system_interface:
+      host:  "192.168.159.15"
+      username: "admin"
+      password: "admin"
+      vdom:  "root"
+      https: "False"
+      system_interface:
+        state: "present"
+        name: "port3"
+        mode: "dhcp"
+        allowaccess:
+          - ping
+          - ssh
+          - https
+          - fgfm
+          - http
+  - name: Configure IPsec manual keys.
+    fortios_vpn_ipsec_manualkey_interface:
+      host:  "192.168.159.15"
+      username: "admin"
+      password: "admin"
+      vdom:  "root"
+      https: "False"
+      vpn_ipsec_manualkey_interface:
+        state: "present"
+        auth_alg: "null" 
+        enc_key: "0x6638656337306261"
+        enc_alg: "des"
+        interface: "port2"
+        local_gw: "172.16.1.46"
+        local_spi: "0x101"
+        name: "IPSEC_VPN0x101"
+        remote_gw: "172.16.1.86"
+        remote_spi: "0x102"
+  - name: Configure IPv4 policy1.
+    fortios_firewall_policy:
+      host:  "192.168.159.15"
+      username: "admin"
+      password: "admin"
+      vdom:  "root"
+      https: "False"
+      firewall_policy:
+        state: "present"
+        policyid: "1"
+        name: "policy1"
+        action: "accept"
+        srcintf: [ {"name": "port3"} ]
+        dstintf: [{"name":"port2"} ]
+        srcaddr: [{"name":"all"} ]
+        dstaddr: [{"name":"all"}]
+        schedule: "always"
+        service: [{"name":"ALL"}]
+        logtraffic: "all"
+  - name: Configure IPv4 policy2.
+    fortios_firewall_policy:
+      host:  "192.168.159.15"
+      username: "admin"
+      password: "admin"
+      vdom:  "root"
+      https: "False"
+      firewall_policy:
+        state: "present"
+        policyid: "2"
+        name: "policy2"
+        action: "accept"
+        srcintf: [ {"name": "port3"} ]
+        dstintf: [{"name":"IPSEC_VPN0x101"} ]
+        srcaddr: [{"name":"all"} ]
+        dstaddr: [{"name":"all"}]
+        schedule: "always"
+        service: [{"name":"ALL"}]
+        logtraffic: "all"
+  - name: Configure IPv4 policy3.
+    fortios_firewall_policy:
+      host:  "192.168.159.15"
+      username: "admin"
+      password: "admin"
+      vdom:  "root"
+      https: "False"
+      firewall_policy:
+        state: "present"
+        policyid: "3"
+        name: "policy3"
+        action: "accept"
+        srcintf: [ {"name": "IPSEC_VPN0x101"} ]
+        dstintf: [{"name":"port3"} ]
+        srcaddr: [{"name":"all"} ]
+        dstaddr: [{"name":"all"}]
+        schedule: "always"
+        service: [{"name":"ALL"}]
+        logtraffic: "all"
+  - name: Configure IPv4 static routing tables.
+    fortios_router_static:
+      host:  "192.168.159.15"
+      username: "admin"
+      password: "admin"
+      vdom:  "root"
+      https: "False"
+      router_static:
+        state: "present"
+        dst: "192.168.201.0/24"
+        device: "IPSEC_VPN0x101"
+        seq_num: "1"
+
+

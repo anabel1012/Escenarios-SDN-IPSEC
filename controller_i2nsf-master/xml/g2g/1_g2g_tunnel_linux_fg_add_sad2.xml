@@ -1,0 +1,40 @@
+<ietf-ipsec xmlns="http://example.net/ietf-ipsec" xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+<ipsec>
+<sad>
+	<sad-entry>
+		<spi>17185</spi> <!-- SPIb1=SPI2 in B-->
+                <anti-replay-window>32</anti-replay-window>
+		<rule-number>0</rule-number>
+		<local-addresses>
+			<start>192.168.201.0/24</start>
+ 			<end>192.168.201.0/24</end>
+		</local-addresses>
+		<remote-addresses>
+			<start>192.168.202.0/24</start>
+			<end>192.168.202.0/24</end>
+		</remote-addresses>
+		<next-layer-protocol>TCP</next-layer-protocol>
+		<local-ports>
+			<start>0</start>
+			<end>0</end>
+		</local-ports>
+		<remote-ports>
+			<start>0</start>
+			<end>0</end>
+		</remote-ports>
+		<security-protocol>esp</security-protocol>
+		<esp-sa>
+			<encryption>
+				<encryption-algorithm>des</encryption-algorithm>
+				<key>0000000000000000</key>
+			</encryption>
+		</esp-sa>
+		<mode>TUNNEL</mode>
+		<tunnel>
+                <local>172.16.1.86</local>
+                <remote>172.16.1.38</remote>
+	        </tunnel>
+	</sad-entry>
+</sad>
+</ipsec>
+</ietf-ipsec>
